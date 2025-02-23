@@ -4,6 +4,12 @@ import java.util.Scanner;
 public class MusicStore {
     private ArrayList<Albums> album;
     private ArrayList<Song> songList;
+
+    public MusicStore() {
+    	ArrayList<Albums> album;
+    	ArrayList<Song> songList;
+    }
+    
     
     
 //getter
