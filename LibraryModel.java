@@ -10,6 +10,7 @@ public class LibraryModel {
     private HashMap<Song, Rate> songRatings;
     private HashMap<String, ArrayList<Song>> playLists;
     private MusicStore musicStore;
+    
 
     public LibraryModel(String username, MusicStore musicStore) {
         this.username = username;
@@ -162,7 +163,13 @@ public class LibraryModel {
     	if (newSong.size() == 0) {
     		return false;
     	}
-    	albumsList.addAll(newSong);
+    	for (Albums a :albumsList) {
+    		for (Song s : musicStore.getSongList()) {
+    			if (a.equals(s.getTitle())){
+    				songList.add(s);
+    			}
+    		}
+    	}
     	return true;
     }
     
@@ -240,7 +247,7 @@ public class LibraryModel {
     	
     }
     
-    public String getString(ArrayList<Song> songList) {
+    public static String getString(ArrayList<Song> songList) {
     	String result = "";
     	for (Song s : songList) {
     		result += "Title: ";
@@ -254,6 +261,5 @@ public class LibraryModel {
     	return result;
     }
 }
-
 
 
