@@ -28,7 +28,7 @@ public class LibraryModel {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
     public ArrayList<Song> searchSongByTitle(String title) {
         ArrayList<Song> result = new ArrayList<>();
         for (Song s : songList) {
@@ -52,7 +52,7 @@ public class LibraryModel {
     public ArrayList<Albums> searchAlbumByTitle(String title) {
         ArrayList<Albums> result = new ArrayList<>();
         for (Albums a : albumsList) {
-            if (a.getTitle().equals(title)) {
+            if (a.getSongList().equals(title)) {
                 result.add(a);
             }
         }
@@ -62,7 +62,7 @@ public class LibraryModel {
     public ArrayList<Albums> searchAlbumByArtist(String artist) {
         ArrayList<Albums> result = new ArrayList<>();
         for (Albums a : albumsList) {
-            if (a.getArtist().equals(artist)) {
+            if (a.getSongList().equals(artist)) {
                 result.add(a);
             }
         }
@@ -157,15 +157,12 @@ public class LibraryModel {
     }
     
     
-    public boolean addAlbumToLibrary(String song) {
-    	ArrayList<Albums> newSong = musicStore.searchAlbumByTitle(song);
+    public boolean addAlbumToLibrary(String albumsName) {
+    	ArrayList<Albums> newSong = musicStore.searchAlbumByTitle(albumsName);
     	if (newSong.size() == 0) {
     		return false;
     	}
     	albumsList.addAll(newSong);
-    	for (Albums a : albumsList) {
-    		songList.addAll(a.getSongs());
-    	}
     	return true;
     }
     
@@ -257,5 +254,6 @@ public class LibraryModel {
     	return result;
     }
 }
+
 
 
