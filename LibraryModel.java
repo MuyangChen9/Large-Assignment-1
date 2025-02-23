@@ -108,11 +108,90 @@ public class LibraryModel {
     	if(!playLists.containsKey(name)) {
     		return false;
     	}
-    	playLists.remove(name)
+    	playLists.remove(name);
     	
     	return true;
     }
     
+    public boolean addPlayListSong(String playList, String song) {
+    	if(!playLists.containsKey(playList)) {
+    		return false;
+    	}
+    	ArrayList<Song> newSong = musicStore.searchSongByTitle(song);
+    	if (newSong.size() == 0) {
+    		return false;
+    	}
+    	Song addSong = newSong.get(0);
+    	ArrayList<Song> newPlayList = playLists.get(playList);
+    	newPlayList.add(addSong);
+    	playLists.put(playList,newPlayList);
+    	return true; 	
+    	
+    }
+    
+    public boolean removePlayListSong(String playList, String song) {
+    	if(!playLists.containsKey(playList)) {
+    		return false;
+    	}
+    	ArrayList<Song> newPlayList = playLists.get(playList);
+    	if(!newPlayList.contains(song)) {
+    		return false;
+    	}
+    	newPlayList.remove(song);
+
+    	playLists.put(playList,newPlayList);
+    	return true; 	
+    	
+    }
+    
+    
+    public boolean addSongToLibrary(String song) {
+    	ArrayList<Song> newSong = musicStore.searchSongByTitle(song);
+    	if (newSong.size() == 0) {
+    		return false;
+    	}
+    	songList.addAll(newSong);
+    	return true;
+    }
+    
+    
+    public boolean addAlbumToLibrary(String song) {
+    	ArrayList<Albums> newSong = musicStore.searchAlbumByTitle(song);
+    	if (newSong.size() == 0) {
+    		return false;
+    	}
+    	albumsList.addAll(newSong);
+    	for (Albums a : albumsList) {
+    		songList.addAll(a.getSongs());
+    	}
+    	return true;
+    }
+    
+    public boolean markFavorite(String song) {
+    	ArrayList<Song> newSong = musicStore.searchSongByTitle(song);
+    	if (newSong.size() == 0) {
+    		return false;
+    	}
+    	favoriteSongs.addAll(newSong);
+    	return true;
+    	
+    }
+    
+    public boolean rateSong(int rate, String song) {
+    	if (rate<0 && rate>5) {
+    		return false;
+    	}
+    	ArrayList<Song> newSong = musicStore.searchSongByTitle(song);
+    	if (newSong.size() == 0) {
+    		return false;
+    	}
+    	Song addSong = newSong.get(0);
+    	songRatings.put(addSong, new Rate(rate));
+    	if (rate==5) {
+    		favoriteSongs.add(addSong);
+    	}
+    	return true;
+    }
     
 }
 
