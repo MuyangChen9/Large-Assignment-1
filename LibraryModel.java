@@ -85,10 +85,12 @@ public class LibraryModel {
     		return result;
     	}
     	for (Song s : result) {
-    		System.out.print("title :");
+    		System.out.print( "title:");
     		System.out.print(s.getTitle());
     		System.out.print("   artist: ");
     		System.out.println(s.getArtist());
+    		System.out.println("\n");
+    		
     		
     	}
     	return result;
@@ -193,6 +195,67 @@ public class LibraryModel {
     	return true;
     }
     
+    public ArrayList<Song> getSongByTitle(String title){
+    	ArrayList<Song> result = new ArrayList<>();
+    	for (Song s: songList) {
+    		if (s.getTitle() == title) {
+    			result.add(s);
+    		}
+    	}
+    	return result;
+    	
+    }
+    
+    
+    public ArrayList<Song> getSongByArtist(String artists){
+    	ArrayList<Song> result = new ArrayList<>();
+    	for (Song s: songList) {
+    		if (s.getArtist() == artists) {
+    			result.add(s);
+    		}
+    	}
+    	return result;
+    	
+    }
+    
+    
+    public ArrayList<Song> getSongByAlbums(String albums){
+    	ArrayList<Song> result = new ArrayList<>();
+    	for (Song s: songList) {
+    		if (s.getAlbum() == albums) {
+    			result.add(s);
+    		}
+    	}
+    	return result;
+    	
+    }
+    
+    
+    
+    public ArrayList<Song> getPlayList(String playList){
+    	ArrayList<Song> result = new ArrayList<>();
+    	if(!playLists.containsKey(playList)){
+    		return result;
+    	}
+    	else{
+    		return playLists.get(playList);
+    	}
+    	
+    }
+    
+    public String getString(ArrayList<Song> songList) {
+    	String result = "";
+    	for (Song s : songList) {
+    		result += "Title: ";
+    		result += s.getTitle();
+    		result += "  Album: ";
+    		result += s.getAlbum();
+    		result += "  Artist";
+    		result += s.getArtist();
+    		result += ("\n");
+    	}
+    	return result;
+    }
 }
 
 
