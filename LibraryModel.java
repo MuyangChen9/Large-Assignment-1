@@ -21,7 +21,7 @@ public class LibraryModel {
         this.playLists = new HashMap<>();
         this.musicStore = musicStore;
     }
-
+//I don't know if we need it, but every app need username
     public String getUsername() {
         return username;
     }
@@ -29,7 +29,7 @@ public class LibraryModel {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+    //search song by title
     public ArrayList<Song> searchSongByTitle(String title) {
         ArrayList<Song> result = new ArrayList<>();
         for (Song s : songList) {
@@ -39,7 +39,7 @@ public class LibraryModel {
         }
         return result;
     }
-
+//search song by artist
     public ArrayList<Song> searchSongByArtist(String artist) {
         ArrayList<Song> result = new ArrayList<>();
         for (Song s : songList) {
@@ -49,7 +49,7 @@ public class LibraryModel {
         }
         return result;
     }
-
+//search album by title
     public ArrayList<Albums> searchAlbumByTitle(String title) {
         ArrayList<Albums> result = new ArrayList<>();
         for (Albums a : albumsList) {
@@ -59,7 +59,7 @@ public class LibraryModel {
         }
         return result;
     }
-
+//search album by title
     public ArrayList<Albums> searchAlbumByArtist(String artist) {
         ArrayList<Albums> result = new ArrayList<>();
         for (Albums a : albumsList) {
@@ -70,7 +70,7 @@ public class LibraryModel {
         return result;
     }
     
-    
+    //search songs in playlist
     public ArrayList<Song> searchPlayList(String name){
     	ArrayList<Song> result = new ArrayList<>();
     	if (playLists.containsKey(name)) {
@@ -96,7 +96,7 @@ public class LibraryModel {
     	}
     	return result;
     }
-    
+    //add a playlist
     public boolean addPlaylist(String name) {
     	if(!playLists.containsKey(name)) {
     		return false;
@@ -106,7 +106,7 @@ public class LibraryModel {
     	return true;
     }
     
-    
+    //remove a playlist
     public boolean removePlaylist(String name) {
     	if(!playLists.containsKey(name)) {
     		return false;
@@ -115,7 +115,7 @@ public class LibraryModel {
     	
     	return true;
     }
-    
+    //add a song into playlist
     public boolean addPlayListSong(String playList, String song) {
     	if(!playLists.containsKey(playList)) {
     		return false;
@@ -131,7 +131,7 @@ public class LibraryModel {
     	return true; 	
     	
     }
-    
+    //remove a song from playlist
     public boolean removePlayListSong(String playList, String song) {
     	if(!playLists.containsKey(playList)) {
     		return false;
@@ -147,7 +147,7 @@ public class LibraryModel {
     	
     }
     
-    
+    //add a song into library
     public boolean addSongToLibrary(String song) {
     	ArrayList<Song> newSong = musicStore.searchSongByTitle(song);
     	if (newSong.size() == 0) {
@@ -157,7 +157,7 @@ public class LibraryModel {
     	return true;
     }
     
-    
+    //adda album into libarary
     public boolean addAlbumToLibrary(String albumsName) {
     	ArrayList<Albums> newSong = musicStore.searchAlbumByTitle(albumsName);
     	if (newSong.size() == 0) {
@@ -172,7 +172,7 @@ public class LibraryModel {
     	}
     	return true;
     }
-    
+    // mark a favorite song
     public boolean markFavorite(String song) {
     	ArrayList<Song> newSong = musicStore.searchSongByTitle(song);
     	if (newSong.size() == 0) {
@@ -182,7 +182,7 @@ public class LibraryModel {
     	return true;
     	
     }
-    
+    // rate the song, if rate is 5 , mark it
     public boolean rateSong(int rate, String song) {
     	if (rate<0 && rate>5) {
     		return false;
@@ -198,7 +198,7 @@ public class LibraryModel {
     	}
     	return true;
     }
-    
+    //get song by title
     public ArrayList<Song> getSongByTitle(String title){
     	ArrayList<Song> result = new ArrayList<>();
     	for (Song s: songList) {
@@ -210,7 +210,7 @@ public class LibraryModel {
     	
     }
     
-    
+    //get all songs froma a artist
     public ArrayList<Song> getSongByArtist(String artists){
     	ArrayList<Song> result = new ArrayList<>();
     	for (Song s: songList) {
@@ -222,7 +222,7 @@ public class LibraryModel {
     	
     }
     
-    
+    //get all songs in one albums
     public ArrayList<Song> getSongByAlbums(String albums){
     	ArrayList<Song> result = new ArrayList<>();
     	for (Song s: songList) {
@@ -235,7 +235,7 @@ public class LibraryModel {
     }
     
     
-    
+    //get all songs from a playlist
     public ArrayList<Song> getPlayList(String playList){
     	ArrayList<Song> result = new ArrayList<>();
     	if(!playLists.containsKey(playList)){
@@ -246,7 +246,7 @@ public class LibraryModel {
     	}
     	
     }
-    
+    //retuen a string about the song
     public static String getString(ArrayList<Song> songList) {
     	String result = "";
     	for (Song s : songList) {
