@@ -63,4 +63,15 @@ public class MusicStore {
         }
         return result;
     }
+
+
+    public void addSong(String songName) {
+    	Song newSong = new Song(songName);
+    	songList.add(newSong);
+    }
+    
+    public void addAlbums(String albumsName) {
+    	Albums newAlbum = new Albums(albumsName);
+    	album.add(newAlbum);
+    }
 }
