@@ -1,37 +1,28 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class Albums {
-    private String title;
-    private String artist;
-    private String genre;
-    private int year;
-    private ArrayList<Song> songs;
+    private HashMap<String, String> songList;
 
-    public Albums(String title, String artist, String genre, int year, ArrayList<Song> songs) {
-        this.title = title;
-        this.artist = artist;
-        this.genre = genre;
-        this.year = year;
-        this.songs = songs;
+    public HashMap<String, String> getSongList() {
+    	return songList;
     }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getArtist() {
-        return artist;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public ArrayList<Song> getSongs() {
-        return songs;
+    
+    public Albums(String albums) {
+    	Scanner scanner = new Scanner(albums);
+    	HashMap<String, String> songList = new HashMap<>();
+        while (scanner.hasNextLine()) {
+        String line = scanner.nextLine().trim();
+        String [] content = line.split(",");
+        String albumsName = content[0];
+        String singerName = content[1];
+        
+        
+        songList.put(albumsName, singerName);
+        }
+        this.songList = songList;
+            
+        scanner.close();
     }
 }
