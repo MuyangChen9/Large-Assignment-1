@@ -98,12 +98,17 @@ public class LibraryModel {
     	if(!playLists.containsKey(name)) {
     		return false;
     	}
-    	ArrayList<Song> newSongs = musicStore.searchSongByTitle(name);
-    	if(newSongs.size() == 0) {
+    	playLists.put(name, new ArrayList<Song>());
+    	
+    	return true;
+    }
+    
+    
+    public boolean removePlaylist(String name) {
+    	if(!playLists.containsKey(name)) {
     		return false;
     	}
-   
-    	String newSong = newSongs.get(0).getTitle();
+    	playLists.remove(name)
     	
     	return true;
     }
