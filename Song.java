@@ -32,6 +32,7 @@ public class Song {
     public String getcontent() {
     	return content;
     }
+    //read the file,get the information and the content for the song
     public Song(String songName) {
         Scanner scanner = new Scanner(songName);
         String [] getName = songName.split("_");
