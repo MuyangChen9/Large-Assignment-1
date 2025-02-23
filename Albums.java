@@ -10,6 +10,7 @@ public class Albums {
     }
     
     public Albums(String albums) {
+        //read the file for album
     	Scanner scanner = new Scanner(albums);
     	HashMap<String, String> songList = new HashMap<>();
         while (scanner.hasNextLine()) {
