@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set
 
 public class LibraryModel {
     private String username;
@@ -246,6 +247,49 @@ public class LibraryModel {
     	}
     	
     }
+
+
+        public ArrayList<String> getAllTitles(){
+    	ArrayList<String> result = new ArrayList<String>();
+    	for (Song s: songList) {
+    		result.add(s.getTitle());
+    	}
+    	return result;
+    }
+    
+    public ArrayList<String> getAllArtist(){
+    	ArrayList<String> result = new ArrayList<String>();
+    	for (Song s: songList) {
+    		result.add(s.getArtist());
+    	}
+    	return result;
+    }
+    
+    public ArrayList<String> getAllAlbums(){
+    	ArrayList<String> result = new ArrayList<String>();
+    	for (Song s: songList) {
+    		result.add(s.getAlbum());
+    	}
+    	return result;
+    }
+    
+    public ArrayList<String> getAllPlayList(){
+    	ArrayList<String> result = new ArrayList<String>();
+    	Set<String> keys = playLists.keySet();
+    	for(String s : keys) {
+    		result.add(s);
+    	}
+    	return result;
+    }
+    public ArrayList<String> getAllFavorite(){
+    	ArrayList<String> result = new ArrayList<String>();
+    	for (Song s : favoriteSongs) {
+    		result.add(s.getTitle());
+    	}
+    	return result;
+    }
+
+    
     //retuen a string about the song
     public static String getString(ArrayList<Song> songList) {
     	String result = "";
