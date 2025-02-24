@@ -30,7 +30,7 @@ public class Song {
     
     
     
-    public Song(String title, String artist,String album, int year, String gener){
+    public Song(String title, String artist,String album, int year, String genre){
     	this.title = title;
     	this.artist = artist;
     	this.album = album;
