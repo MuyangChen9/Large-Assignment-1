@@ -61,12 +61,12 @@ public class MusicStore {
         return result;
     }
     //read file, andr put the data into list
-    public void addSong(String songName) {
+    public void addSong(String songName) throws FileNotFoundException{
     	Song newSong = new Song(songName);
     	songList.add(newSong);
     }
     
-    public void addAlbums(String albumsName) {
+    public void addAlbums(String albumsName) throws FileNotFoundException{
     	Albums newAlbum = new Albums(albumsName);
     	album.add(newAlbum);
     }
