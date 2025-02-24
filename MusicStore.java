@@ -60,12 +60,17 @@ public class MusicStore {
         return result;
     }
     
-    public void addSong(Song songName){
-    	songList.add(songName);
+  
+    public void putAllSongin(){
+    	for(Albums a :album) {
+    		for (Song s: a.getSongList()) {
+    			this.songList.add(s);
+    		}
+    	}
     }
     
     public void addAlbums(String albumsName) throws FileNotFoundException{
     	Albums newAlbum = new Albums(albumsName);
-    	album.add(newAlbum);
+    	this.album.add(newAlbum);
     }
 }
