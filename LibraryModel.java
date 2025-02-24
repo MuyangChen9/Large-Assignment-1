@@ -1,3 +1,4 @@
+package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -120,9 +121,12 @@ public class LibraryModel {
     		return false;
     	}
     	ArrayList<Song> newPlayList = playLists.get(playList);
-    	if(!newPlayList.contains(song)) {
-    		return false;
+    	for(int i = 0; i<newPlayList.size(); i++) {
+    		if(!newPlayList.get(0).getTitle().contains(song)) {
+        		return false;
+        	}
     	}
+    	
     	newPlayList.remove(song);
 
     	playLists.put(playList,newPlayList);
@@ -286,6 +290,4 @@ public class LibraryModel {
     	return result;
     }
 }
-
-
 
