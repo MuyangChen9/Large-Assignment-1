@@ -186,41 +186,6 @@ public class LibraryModel {
     	}
     	return true;
     }
-    //get song by title
-    public ArrayList<Song> getSongByTitle(String title){
-    	ArrayList<Song> result = new ArrayList<>();
-    	for (Song s: songList) {
-    		if (s.getTitle() == title) {
-    			result.add(s);
-    		}
-    	}
-    	return result;
-    	
-    }
-    
-    //get songs by artist
-    public ArrayList<Song> getSongByArtist(String artists){
-    	ArrayList<Song> result = new ArrayList<>();
-    	for (Song s: songList) {
-    		if (s.getArtist() == artists) {
-    			result.add(s);
-    		}
-    	}
-    	return result;
-    	
-    }
-    
-    //get Songs by albums
-    public ArrayList<Song> getSongByAlbums(String albums){
-    	ArrayList<Song> result = new ArrayList<>();
-    	for (Song s: songList) {
-    		if (s.getAlbum() == albums) {
-    			result.add(s);
-    		}
-    	}
-    	return result;
-    	
-    }
     
     
     //get playlist with name
