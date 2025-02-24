@@ -1,11 +1,5 @@
 package model;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-
 public class Song {
 	
     private String title;
