@@ -198,8 +198,9 @@ public class LibraryModel {
     public ArrayList<String> getAllArtist(){
     	ArrayList<String> result = new ArrayList<String>();
     	for (Song s: songList) {
-    		if(!result.contains(s.getArtist()));
+    		if(!result.contains(s.getArtist())) {
     			result.add(s.getArtist());
+    		}
     	}
     	return result;
     }
@@ -207,7 +208,10 @@ public class LibraryModel {
     public ArrayList<String> getAllAlbums(){
     	ArrayList<String> result = new ArrayList<String>();
     	for (Albums a: albumsList) {
-    		result.add(a.getAlbumsName());
+    		if(!result.contains(a.getAlbumsName())) {
+    			result.add(a.getAlbumsName());
+    		}
+    		
     	}
     	return result;
     }
@@ -225,20 +229,6 @@ public class LibraryModel {
     	ArrayList<String> result = new ArrayList<String>();
     	for (Song s : favoriteSongs) {
     		result.add(s.getTitle());
-    	}
-    	return result;
-    }
-//get String
-    public static String getString(ArrayList<Song> songList) {
-    	String result = "";
-    	for (Song s : songList) {
-    		result += "Title: ";
-    		result += s.getTitle();
-    		result += "  Album: ";
-    		result += s.getAlbum();
-    		result += "  Artist";
-    		result += s.getArtist();
-    		result += ("\n");
     	}
     	return result;
     }
