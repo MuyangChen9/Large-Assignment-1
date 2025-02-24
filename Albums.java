@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 public class Albums {
     private ArrayList<Song> songList;
     private String albumsName;
+    private String artist;
 
     public ArrayList<Song> getSongList() {
     	return songList;
@@ -14,6 +15,9 @@ public class Albums {
     
     public String getAlbumsName() {
     	return albumsName;
+    }
+    public String getArtist() {
+    	return artist;
     }
     
     public Albums(String albums)  throws FileNotFoundException{
@@ -35,6 +39,7 @@ public class Albums {
         }
         this.songList = songList;
         this.albumsName = album;
+        this.artist = artist;
             
         scanner.close();
     }
