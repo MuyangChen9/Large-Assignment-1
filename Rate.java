@@ -1,3 +1,5 @@
+package model;
+
 public class Rate {
     private int rate;
 
