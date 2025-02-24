@@ -7,9 +7,13 @@ public class MusicStore {
     private ArrayList<Song> songList;
     
     public MusicStore() {
-    	ArrayList<Albums> album;
-    	ArrayList<Song> songList;
+    	ArrayList<Albums> album = new ArrayList<>();
+    	ArrayList<Song> songList = new ArrayList<>();
+    	this.album = album;
+    	this.songList = songList;
+    			
     }
+    
     
     
     public ArrayList<Albums> getAlbums() {
