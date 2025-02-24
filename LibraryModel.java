@@ -146,6 +146,9 @@ public class LibraryModel {
     	if (newSong.size() == 0) {
     		return false;
     	}
+        if (!albumsList.contains(albumsName)) {
+    		albumsList.addAll(newSong);
+    	}
     	Albums newAlbum = newSong.get(0);
     		for (Song s: newAlbum.getSongList()) {
     			songList.add(s);
