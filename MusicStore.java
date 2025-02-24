@@ -64,13 +64,13 @@ public class MusicStore {
     public void putAllSongin(){
     	for(Albums a :album) {
     		for (Song s: a.getSongList()) {
-    			this.songList.add(s);
+    			songList.add(s);
     		}
     	}
     }
     
     public void addAlbums(String albumsName) throws FileNotFoundException{
     	Albums newAlbum = new Albums(albumsName);
-    	this.album.add(newAlbum);
+    	album.add(newAlbum);
     }
 }
