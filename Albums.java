@@ -1,37 +1,46 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Albums {
-    private String title;
+    private ArrayList<Song> songList;
+    private String albumsName;
     private String artist;
-    private String genre;
-    private int year;
-    private ArrayList<Song> songs;
 
-    public Albums(String title, String artist, String genre, int year, ArrayList<Song> songs) {
-        this.title = title;
-        this.artist = artist;
-        this.genre = genre;
-        this.year = year;
-        this.songs = songs;
+    public ArrayList<Song> getSongList() {
+    	return songList;
     }
-
-    public String getTitle() {
-        return title;
+    
+    public String getAlbumsName() {
+    	return albumsName;
     }
-
     public String getArtist() {
-        return artist;
+    	return artist;
     }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public ArrayList<Song> getSongs() {
-        return songs;
+    
+    public Albums(String albums)  throws FileNotFoundException{
+    	ArrayList<Song> songList = new ArrayList<>();
+    	File file = new File(albums);
+    	Scanner scanner = new Scanner(file);
+    	
+    	
+    	String firstLine = scanner.nextLine();
+        String[] data = firstLine.split(",");
+        String album = data[0].trim();
+        String artist = data[1].trim();
+        String genre = data[2].trim();
+        int year = Integer.parseInt(data[3].trim());
+        while(scanner.hasNextLine()) {
+        	String title = scanner.nextLine().trim();
+        	Song newSong = new Song(title,artist,album,year,genre);
+        	songList.add(newSong);
+        }
+        this.songList = songList;
+        this.albumsName = album;
+        this.artist = artist;
+            
+        scanner.close();
     }
 }

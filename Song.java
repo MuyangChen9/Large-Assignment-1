@@ -1,13 +1,18 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
 public class Song {
+	
     private String title;
     private String artist;
     private String album;
+    private int year;
+    private String genre;
 
-    public Song(String title, String artist, String album) {
-        this.title = title;
-        this.artist = artist;
-        this.album = album;
-    }
+	
 
     public String getTitle() {
         return title;
@@ -17,7 +22,20 @@ public class Song {
         return artist;
     }
 
+    
     public String getAlbum() {
         return album;
     }
+    
+    
+    
+    
+    public Song(String title, String artist,String album, int year, String genre){
+    	this.title = title;
+    	this.artist = artist;
+    	this.album = album;
+    	this.year = year;
+    	this.genre =genre;
+    }
+        
 }

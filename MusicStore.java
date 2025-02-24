@@ -1,46 +1,44 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MusicStore {
     private ArrayList<Albums> album;
-
-    private void readAlbums(String albums) {
-        Scanner scanner = new Scanner(albums);
-
-        String firstLine = scanner.nextLine();
-        String[] data = firstLine.split(",");
-        String albumTitle = data[0].trim();
-        String artist = data[1].trim();
-        String genre = data[2].trim();
-        int year = Integer.parseInt(data[3].trim());
-
-        ArrayList<Song> song = new ArrayList<>();
-        while (scanner.hasNextLine()) {
-            String songTitle = scanner.nextLine().trim();
-            song.add(new Song(songTitle, artist, albumTitle));
-        }
-        album.add(new Albums(albumTitle, artist, genre, year, song));
-        scanner.close();
+    private ArrayList<Song> songList;
+    
+    public MusicStore() {
+    	ArrayList<Albums> album = new ArrayList<>();
+    	ArrayList<Song> songList = new ArrayList<>();
+    	this.album = album;
+    	this.songList = songList;
+    			
     }
-
+    
+    
+    
     public ArrayList<Albums> getAlbums() {
         return album;
     }
+    
+    public ArrayList<Song> getSongList(){
+    	return songList;
+    }
+    
     public ArrayList<Song> searchSongByTitle(String title) {
         ArrayList<Song> result = new ArrayList<>();
-        for (Albums a : album) {
-            if (a.getTitle().equals(title)) {
-                result.addAll(a.getSongs());
-            }
+        for (Song s : songList) {
+        	if(s.getTitle().equals(title)){
+        		result.add(s);
+        	}
         }
         return result;
     }
 
     public ArrayList<Song> searchSongByArtist(String artist) {
         ArrayList<Song> result = new ArrayList<>();
-        for (Albums a : album) {
-            if (a.getArtist().equals(artist)) {
-            	result.addAll(a.getSongs());
+        for (Song s : songList) {
+            if (s.getArtist().equals(artist)) {
+            	result.add(s);
             }
         }
         return result;
@@ -49,7 +47,7 @@ public class MusicStore {
     public ArrayList<Albums> searchAlbumByTitle(String title) {
         ArrayList<Albums> result = new ArrayList<>();
         for (Albums a : album) {
-            if (a.getTitle().equals(title)) {
+            if (a.getAlbumsName().equals(title)) {
                 result.add(a);
             }
         }
@@ -64,5 +62,19 @@ public class MusicStore {
             }
         }
         return result;
+    }
+    
+  
+    public void putAllSongin(){
+    	for(Albums a :album) {
+    		for (Song s: a.getSongList()) {
+    			songList.add(s);
+    		}
+    	}
+    }
+    
+    public void addAlbums(String albumsName) throws FileNotFoundException{
+    	Albums newAlbum = new Albums(albumsName);
+    	album.add(newAlbum);
     }
 }
