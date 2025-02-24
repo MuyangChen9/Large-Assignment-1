@@ -51,7 +51,7 @@ public class LibraryModel {
         }
         return result;
     }
-//search album by titel
+//search album by title
     public ArrayList<Albums> searchAlbumByTitle(String title) {
         ArrayList<Albums> result = new ArrayList<>();
         for (Albums a : albumsList) {
