@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set
+import java.util.Set;
 
 public class LibraryModel {
     private String username;
@@ -22,7 +22,7 @@ public class LibraryModel {
         this.playLists = new HashMap<>();
         this.musicStore = musicStore;
     }
-//I don't know if we need it, but every app need username
+
     public String getUsername() {
         return username;
     }
@@ -30,7 +30,7 @@ public class LibraryModel {
     public void setUsername(String username) {
         this.username = username;
     }
-    //search song by title
+    //search by title
     public ArrayList<Song> searchSongByTitle(String title) {
         ArrayList<Song> result = new ArrayList<>();
         for (Song s : songList) {
@@ -50,54 +50,36 @@ public class LibraryModel {
         }
         return result;
     }
-//search album by title
+//search album by titel
     public ArrayList<Albums> searchAlbumByTitle(String title) {
         ArrayList<Albums> result = new ArrayList<>();
         for (Albums a : albumsList) {
-            if (a.getSongList().equals(title)) {
+            if (a.getAlbumsName().equals(title)) {
                 result.add(a);
             }
         }
         return result;
     }
-//search album by title
+//search album by artist
     public ArrayList<Albums> searchAlbumByArtist(String artist) {
         ArrayList<Albums> result = new ArrayList<>();
         for (Albums a : albumsList) {
-            if (a.getSongList().equals(artist)) {
+            if (a.getArtist().equals(artist)) {
                 result.add(a);
             }
         }
         return result;
     }
     
-    //search songs in playlist
+    //seach a playlist
     public ArrayList<Song> searchPlayList(String name){
     	ArrayList<Song> result = new ArrayList<>();
     	if (playLists.containsKey(name)) {
-    		result = playLists.get(name);
-    	}
-    	else {
-    		System.out.println("Nothing found");
-    		return result;
-    		
-    	}
-    	if (result.size() == 0) {
-    		System.out.println("Nothing found");
-    		return result;
-    	}
-    	for (Song s : result) {
-    		System.out.print( "title:");
-    		System.out.print(s.getTitle());
-    		System.out.print("   artist: ");
-    		System.out.println(s.getArtist());
-    		System.out.println("\n");
-    		
-    		
+    		result = playLists.get(name);	
     	}
     	return result;
     }
-    //add a playlist
+    //add playlist
     public boolean addPlaylist(String name) {
     	if(!playLists.containsKey(name)) {
     		return false;
@@ -107,7 +89,7 @@ public class LibraryModel {
     	return true;
     }
     
-    //remove a playlist
+    //remove rhe playlist
     public boolean removePlaylist(String name) {
     	if(!playLists.containsKey(name)) {
     		return false;
@@ -116,7 +98,7 @@ public class LibraryModel {
     	
     	return true;
     }
-    //add a song into playlist
+    //add the song into playlist
     public boolean addPlayListSong(String playList, String song) {
     	if(!playLists.containsKey(playList)) {
     		return false;
@@ -132,7 +114,7 @@ public class LibraryModel {
     	return true; 	
     	
     }
-    //remove a song from playlist
+    //remove the song in playlist
     public boolean removePlayListSong(String playList, String song) {
     	if(!playLists.containsKey(playList)) {
     		return false;
@@ -148,7 +130,7 @@ public class LibraryModel {
     	
     }
     
-    //add a song into library
+    //add song to library
     public boolean addSongToLibrary(String song) {
     	ArrayList<Song> newSong = musicStore.searchSongByTitle(song);
     	if (newSong.size() == 0) {
@@ -158,22 +140,20 @@ public class LibraryModel {
     	return true;
     }
     
-    //adda album into libarary
+    //add ablum to library
     public boolean addAlbumToLibrary(String albumsName) {
     	ArrayList<Albums> newSong = musicStore.searchAlbumByTitle(albumsName);
     	if (newSong.size() == 0) {
     		return false;
     	}
-    	for (Albums a :albumsList) {
-    		for (Song s : musicStore.getSongList()) {
-    			if (a.equals(s.getTitle())){
-    				songList.add(s);
-    			}
+    	Albums newAlbum = newSong.get(0);
+    		for (Song s: newAlbum.getSongList()) {
+    			songList.add(s);
     		}
-    	}
+    	
     	return true;
     }
-    // mark a favorite song
+    // mark favorite song
     public boolean markFavorite(String song) {
     	ArrayList<Song> newSong = musicStore.searchSongByTitle(song);
     	if (newSong.size() == 0) {
@@ -183,7 +163,7 @@ public class LibraryModel {
     	return true;
     	
     }
-    // rate the song, if rate is 5 , mark it
+    //rate song
     public boolean rateSong(int rate, String song) {
     	if (rate<0 && rate>5) {
     		return false;
@@ -211,7 +191,7 @@ public class LibraryModel {
     	
     }
     
-    //get all songs froma a artist
+    //get songs by artist
     public ArrayList<Song> getSongByArtist(String artists){
     	ArrayList<Song> result = new ArrayList<>();
     	for (Song s: songList) {
@@ -223,7 +203,7 @@ public class LibraryModel {
     	
     }
     
-    //get all songs in one albums
+    //get Songs by albums
     public ArrayList<Song> getSongByAlbums(String albums){
     	ArrayList<Song> result = new ArrayList<>();
     	for (Song s: songList) {
@@ -236,7 +216,7 @@ public class LibraryModel {
     }
     
     
-    //get all songs from a playlist
+    //get playlist with name
     public ArrayList<Song> getPlayList(String playList){
     	ArrayList<Song> result = new ArrayList<>();
     	if(!playLists.containsKey(playList)){
@@ -247,16 +227,15 @@ public class LibraryModel {
     	}
     	
     }
-
-
-        public ArrayList<String> getAllTitles(){
+    //get all titles' name
+    public ArrayList<String> getAllTitles(){
     	ArrayList<String> result = new ArrayList<String>();
     	for (Song s: songList) {
     		result.add(s.getTitle());
     	}
     	return result;
     }
-    
+    //get all artists' name
     public ArrayList<String> getAllArtist(){
     	ArrayList<String> result = new ArrayList<String>();
     	for (Song s: songList) {
@@ -264,15 +243,15 @@ public class LibraryModel {
     	}
     	return result;
     }
-    
+    //get all albums' name
     public ArrayList<String> getAllAlbums(){
     	ArrayList<String> result = new ArrayList<String>();
-    	for (Song s: songList) {
-    		result.add(s.getAlbum());
+    	for (Albums a: albumsList) {
+    		result.add(a.getAlbumsName());
     	}
     	return result;
     }
-    
+    //get all playlists' name
     public ArrayList<String> getAllPlayList(){
     	ArrayList<String> result = new ArrayList<String>();
     	Set<String> keys = playLists.keySet();
@@ -281,6 +260,7 @@ public class LibraryModel {
     	}
     	return result;
     }
+    //get favorite songs' list
     public ArrayList<String> getAllFavorite(){
     	ArrayList<String> result = new ArrayList<String>();
     	for (Song s : favoriteSongs) {
@@ -288,9 +268,7 @@ public class LibraryModel {
     	}
     	return result;
     }
-
-    
-    //retuen a string about the song
+//get String
     public static String getString(ArrayList<Song> songList) {
     	String result = "";
     	for (Song s : songList) {
@@ -305,5 +283,6 @@ public class LibraryModel {
     	return result;
     }
 }
+
 
 
