@@ -172,7 +172,7 @@ public class LibraryModel {
     }
     //rate song
     public boolean rateSong(int rate, String song) {
-    	if (rate<0 && rate>5) {
+    	if (rate<0 || rate>5) {
     		return false;
     	}
     	ArrayList<Song> newSong = musicStore.searchSongByTitle(song);
