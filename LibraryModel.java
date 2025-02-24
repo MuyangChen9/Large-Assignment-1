@@ -90,7 +90,7 @@ public class LibraryModel {
     	return true;
     }
     
-    //remove rhe playlist
+    //remove the playlist
     public boolean removePlaylist(String name) {
     	if(!playLists.containsKey(name)) {
     		return false;
@@ -186,7 +186,6 @@ public class LibraryModel {
     	}
     	return true;
     }
-    
     //get all titles' name
     public ArrayList<String> getAllTitles(){
     	ArrayList<String> result = new ArrayList<String>();
