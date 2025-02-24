@@ -81,7 +81,7 @@ public class LibraryModel {
     }
     //add playlist
     public boolean addPlaylist(String name) {
-    	if(!playLists.containsKey(name)) {
+    	if(playLists.containsKey(name)) {
     		return false;
     	}
     	playLists.put(name, new ArrayList<Song>());
