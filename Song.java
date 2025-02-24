@@ -1,5 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Song {
 	
@@ -40,10 +43,11 @@ public class Song {
     	return content;
     }
     
-    public Song(String songName) {
-        Scanner scanner = new Scanner(songName);
+    public Song(String songName) throws FileNotFoundException{
         String [] getName = songName.split("_");
         String title = getName[0];
+        File file = new File(songName);
+        Scanner scanner = new Scanner(file);
 
         String firstLine = scanner.nextLine();
         String[] data = firstLine.split(",");
