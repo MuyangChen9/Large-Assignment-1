@@ -186,9 +186,6 @@ public class LibraryModel {
     	}
     	return true;
     }
-    
-    	
-    }
     //get all titles' name
     public ArrayList<String> getAllTitles(){
     	ArrayList<String> result = new ArrayList<String>();
@@ -201,7 +198,8 @@ public class LibraryModel {
     public ArrayList<String> getAllArtist(){
     	ArrayList<String> result = new ArrayList<String>();
     	for (Song s: songList) {
-    		result.add(s.getArtist());
+    		if(!result.contains(s.getArtist()));
+    			result.add(s.getArtist());
     	}
     	return result;
     }
@@ -245,4 +243,3 @@ public class LibraryModel {
     	return result;
     }
 }
-
