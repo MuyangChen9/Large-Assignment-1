@@ -172,7 +172,7 @@ public class LibraryModel {
     }
     //rate song
     public boolean rateSong(int rate, String song) {
-    	if (rate<0 && rate>5) {
+    	if (rate<0 || rate>5) {
     		return false;
     	}
     	ArrayList<Song> newSong = musicStore.searchSongByTitle(song);
@@ -186,54 +186,7 @@ public class LibraryModel {
     	}
     	return true;
     }
-    //get song by title
-    public ArrayList<Song> getSongByTitle(String title){
-    	ArrayList<Song> result = new ArrayList<>();
-    	for (Song s: songList) {
-    		if (s.getTitle() == title) {
-    			result.add(s);
-    		}
-    	}
-    	return result;
-    	
-    }
     
-    //get songs by artist
-    public ArrayList<Song> getSongByArtist(String artists){
-    	ArrayList<Song> result = new ArrayList<>();
-    	for (Song s: songList) {
-    		if (s.getArtist() == artists) {
-    			result.add(s);
-    		}
-    	}
-    	return result;
-    	
-    }
-    
-    //get Songs by albums
-    public ArrayList<Song> getSongByAlbums(String albums){
-    	ArrayList<Song> result = new ArrayList<>();
-    	for (Song s: songList) {
-    		if (s.getAlbum() == albums) {
-    			result.add(s);
-    		}
-    	}
-    	return result;
-    	
-    }
-    
-    
-    //get playlist with name
-    public ArrayList<Song> getPlayList(String playList){
-    	ArrayList<Song> result = new ArrayList<>();
-    	if(!playLists.containsKey(playList)){
-    		return result;
-    	}
-    	else{
-    		return playLists.get(playList);
-    	}
-    	
-    }
     //get all titles' name
     public ArrayList<String> getAllTitles(){
     	ArrayList<String> result = new ArrayList<String>();
@@ -246,7 +199,8 @@ public class LibraryModel {
     public ArrayList<String> getAllArtist(){
     	ArrayList<String> result = new ArrayList<String>();
     	for (Song s: songList) {
-    		result.add(s.getArtist());
+    		if(!result.contains(s.getArtist()));
+    			result.add(s.getArtist());
     	}
     	return result;
     }
@@ -290,4 +244,3 @@ public class LibraryModel {
     	return result;
     }
 }
-
