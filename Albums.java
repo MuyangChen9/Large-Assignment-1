@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Albums {
     private HashMap<String, String> songList;
@@ -9,18 +11,18 @@ public class Albums {
     	return songList;
     }
     
-    public Albums(String albums) {
-        //read the file for album
-    	Scanner scanner = new Scanner(albums);
+    public Albums(String albums)  throws FileNotFoundException{
+    	File file = new File(albums);
+    	Scanner scanner = new Scanner(file);
     	HashMap<String, String> songList = new HashMap<>();
         while (scanner.hasNextLine()) {
         String line = scanner.nextLine().trim();
         String [] content = line.split(",");
-        String albumsName = content[0];
+        String songName = content[0];
         String singerName = content[1];
         
         
-        songList.put(albumsName, singerName);
+        songList.put(songName, singerName);
         }
         this.songList = songList;
             
