@@ -122,7 +122,44 @@ public class UserManager {
          Song song = new Song(title, artist, album, year, genre);
          library.addSong(song);
          }
+         
+         String playCountsFile = username + "_playCounts.txt";
+         File playFile = new File(playCountsFile);
+         Scanner scanner1 = new Scanner(playFile);
+         while (scanner1.hasNextLine()) {
+        	 String line = scanner1.nextLine();
+             String[] parts = line.split(",");
+             String title = parts[0].trim();
+             String artist = parts[1].trim();
+             String album = parts[2].trim();
+             int year = Integer.parseInt(parts[3].trim());
+             String genre = parts[4].trim();
+             int count = Integer.parseInt(parts[5].trim());
+             Song song = new Song(title, artist, album, year, genre);
+             library.getPlayCounts().put(song, count);
+         }
+         String recentPlayedFile = username + "_recentPlayed.txt";
+         File recentFile = new File(recentPlayedFile);
+         Scanner scanner3 = new Scanner(recentFile);
+         while (scanner3.hasNextLine()) {
+        	 String line = scanner3.nextLine();
+             String[] parts = line.split(",");
+             String title = parts[0].trim();
+             String artist = parts[1].trim();
+             String album = parts[2].trim();
+             int year = Integer.parseInt(parts[3].trim());
+             String genre = parts[4].trim();
+             Song song = new Song(title, artist, album, year, genre);
+             library.getRecentPlayedSongs().add(song);
+         }
+         
+         
          return library;
-    }
-}
+  
     
+    }
+    
+    
+    
+    
+}
