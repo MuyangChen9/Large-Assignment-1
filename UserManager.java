@@ -78,6 +78,7 @@ public class UserManager {
         Userdata newUser = new Userdata(name, salt, hashedPassword);
         userMap.put(name, newUser);
         saveUsers();
+        createUserLibraryFile(name);
         return true;
     }
     
@@ -96,7 +97,32 @@ public class UserManager {
     return false;
     }
     
+    private void createUserLibraryFile(String username) {
+        String libraryFile = username + "_library.txt";
+        File file = new File(libraryFile);
+    }
+    
+    
+    public LibraryModel loadUserLibrary(String username)  throws FileNotFoundException{
+    	 LibraryModel library = new LibraryModel(username, new MusicStore());
+         String libraryFile = username + "_library.txt";
+         File file = new File(libraryFile);
+         if (!file.exists()) {
+        	 return library;
+         }
+         Scanner scanner = new Scanner(file);
+         while (scanner.hasNextLine()) {
+         String line = scanner.nextLine();
+         String[] parts = line.split(",");
+         String title = parts[0].trim();
+         String artist = parts[1].trim();
+         String album = parts[2].trim();
+         int year = Integer.parseInt(parts[3].trim());
+         String genre = parts[4].trim();
+         Song song = new Song(title, artist, album, year, genre);
+         library.addSong(song);
+         }
+         return library;
+    }
 }
-    
-    
     
