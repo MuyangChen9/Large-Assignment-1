@@ -21,7 +21,7 @@ public class UserManager {
     private static final int ITERATIONS = 10000;
     private static final int KEY_LENGTH = 256;
     
-    public UserManager() {
+    public UserManager()  throws FileNotFoundException{
         userMap = new HashMap<>();
         loadUsers();
     }
@@ -49,38 +49,27 @@ public class UserManager {
         }
     }
     
-    private void saveUsers() {
+    private void saveUsers() throws IOException {
 
 			BufferedWriter userdata;
-			try {
 				userdata = new BufferedWriter(new FileWriter(userdatafile));
 				for (Userdata user : userMap.values()) {
 					userdata.write(user.toCSV());
 					userdata.newLine();
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
     }
     
     
-    private void loadUsers() {
+    private void loadUsers()  throws FileNotFoundException{
     	File file = new File(userdatafile);
-		try {
-			Scanner scanner;
-			scanner = new Scanner(file);
+			Scanner scanner = new Scanner(file);
 			while (scanner.hasNextLine()) {
 	            String line = scanner.nextLine();
 	            Userdata user = Userdata.fromCSV(line);
 	    	}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
     
-    public boolean register (String name, String password) {
+    public boolean register (String name, String password) throws IOException {
     	if (userMap.containsKey(name)) {
     		return false;
     	}
@@ -108,5 +97,6 @@ public class UserManager {
     }
     
 }
+    
     
     
