@@ -23,7 +23,13 @@ public class Song {
         return album;
     }
     
+    public String getGenre() {
+    	return genre;
+    }
     
+    public int getYear() {
+    	return year;
+    }
     
     
     public Song(String title, String artist,String album, int year, String genre){
