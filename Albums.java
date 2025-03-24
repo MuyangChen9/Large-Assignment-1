@@ -11,6 +11,12 @@ public class Albums {
     private String albumsName;
     private String artist;
 
+    public Albums(String albumsName, String artist) {
+        this.albumsName = albumsName;
+        this.artist = artist;
+        this.songList = new ArrayList<>();
+    }
+
     public ArrayList<Song> getSongList() {
     	return songList;
     }
