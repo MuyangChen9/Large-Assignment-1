@@ -34,24 +34,20 @@ public class LibraryModel {
     
     
     //new
-    public boolean playSong(String title) {
+   public boolean playSong(String title) {
     	ArrayList<Song> results = searchSongByTitle(title);
     	if (results.isEmpty()) {
     		return false;
     	}
     	Song song = results.get(0);
-        if (!playCounts.containsKey(song)) {
+    	if (!playCounts.containsKey(song)) {
     		playCounts.put(song,0);
     	}
     	playCounts.put(song,playCounts.get(song) + 1);
-    	if (!recentPlayedSongs.contains(song)) {
-    	    if (recentPlayedSongs.size() == 10) {
-    	    	recentPlayedSongs.remove(recentPlayedSongs.size() - 1);
-    	    }else {
-    	    	recentPlayedSongs.remove(song);
-    	    }
-    	    recentPlayedSongs.add(0, song);
+    	if (recentPlayedSongs.size() == 10) {
+    		recentPlayedSongs.remove(recentPlayedSongs.size() - 1);  	    
     	}
+    	recentPlayedSongs.add(0, song);
     	return true;
     }
     //new
