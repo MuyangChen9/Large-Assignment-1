@@ -40,6 +40,9 @@ public class LibraryModel {
     		return false;
     	}
     	Song song = results.get(0);
+        if (!playCounts.containsKey(song)) {
+    		playCounts.put(song,0);
+    	}
     	playCounts.put(song,playCounts.get(song) + 1);
     	if (!recentPlayedSongs.contains(song)) {
     	    if (recentPlayedSongs.size() == 10) {
