@@ -149,6 +149,214 @@ public class LibraryModel {
     public ArrayList<Song> getrecentPlayedSongs(){
     	return recentPlayedSongs;
     }
+
+
+    //partc a
+    public ArrayList<Song> getSongsSortedByTitle() {
+    	ArrayList<Song> sortedList = new ArrayList<>(songList);
+        Collections.sort(sortedList, Comparator.comparing(Song::getTitle));
+        return sortedList;
+    }
+    
+    public ArrayList<Song> getSongsSortedByArtist() {
+    	ArrayList<Song> sortedList = new ArrayList<>(songList);
+        Collections.sort(sortedList, Comparator.comparing(Song::getArtist));
+        return sortedList;
+    }
+    
+    public ArrayList<Song> getSongsSortedByRating(){
+    	ArrayList<Song> unsortedList = new ArrayList<>(songList);
+        ArrayList<Song> sortedList = new ArrayList<>();
+        while (unsortedList.size() > 0) {
+        	Song maxSong = unsortedList.get(0);
+            int maxRating;
+            if (songRatings.containsKey(maxSong)) {
+                maxRating = songRatings.get(maxSong).getRate();
+            } else {
+                maxRating = 0;
+            }
+            int maxIndex = 0;
+            int index = 1;
+            while (index < unsortedList.size()) {
+            	Song currentSong = unsortedList.get(index);
+                int currentRating;
+                if (songRatings.containsKey(currentSong)) {
+                    currentRating = songRatings.get(currentSong).getRate();
+                } else {
+                    currentRating = 0;
+                }
+                if (currentRating > maxRating) {
+                    maxSong = currentSong;
+                    maxRating = currentRating;
+                    maxIndex = index;
+                }
+                index++;
+            }
+            sortedList.add(maxSong);
+            unsortedList.remove(maxIndex);
+        }
+        return sortedList;
+    }
+    
+    public HashMap<Song, Rate> getSongRatings() {
+    	return songRatings;
+    }
+    
+    
+    public void saveSongRatings() throws IOException{
+    	String fileName = username + "_ratings.txt";
+    	BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+    	for (Map.Entry<Song, Rate> entry : songRatings.entrySet()) {
+            Song song = entry.getKey();
+            Rate rate = entry.getValue();
+            String line = song.getTitle() + "," 
+                    + song.getArtist() + "," 
+                    + song.getAlbum() + "," 
+                    + song.getYear() + "," 
+                    + song.getGenre() + "," 
+                    + rate.getRate();
+            writer.write(line);
+            writer.newLine();
+        }
+    }
+    
+    //partc b
+    public boolean removeSong(String title) {
+        boolean removed = false;
+        int index = 0;
+        while (index < songList.size()) {
+            Song song = songList.get(index);
+            if (song.getTitle().equalsIgnoreCase(title)) {
+            	songList.remove(index);
+                removed = true;
+            if (playCounts.containsKey(song)) {
+                playCounts.remove(song);
+            }
+            recentPlayedSongs.remove(song);
+            if (songRatings.containsKey(song)) {
+                songRatings.remove(song);
+            }
+        }else {
+        	index++;
+        }
+        }
+        return removed;
+    }
+    
+    
+    
+    public boolean removeAlbum(String albumName) {
+    	boolean removed = false;
+        int index = 0;
+        while (index < songList.size()) {
+        	Song song = songList.get(index);
+        	if (song.getAlbum().equalsIgnoreCase(albumName)) {
+                songList.remove(index);
+                removed = true;
+                if (playCounts.containsKey(song)) {
+                    playCounts.remove(song);
+                }
+                recentPlayedSongs.remove(song);
+                if (songRatings.containsKey(song)) {
+                    songRatings.remove(song);
+                }
+        	}else {
+        		index++;
+        	}
+        }
+        return removed;
+    }
+    
+    //d
+    public String getAlbumInfoForSong(String songTitle) {
+    	ArrayList<Song> foundSongs = musicStore.searchSongByTitle(songTitle);
+    	if (foundSongs.size() == 0) {
+    		return "No information found for this song.";
+    	}
+    	Song song = foundSongs.get(0);
+        String albumName = song.getAlbum();
+        ArrayList<Albums> foundAlbums = musicStore.searchAlbumByTitle(albumName);
+        if (foundAlbums.size() == 0) {
+        	return "No album information found for this song.";
+        }
+        Albums album = foundAlbums.get(0);
+        boolean inUserLibrary = false;
+        int i = 0;
+        while (i < albumsList.size()) {
+            Albums userAlbum = albumsList.get(i);
+            if (userAlbum.getAlbumsName().equalsIgnoreCase(albumName)) {
+                inUserLibrary = true;
+                break;
+            }
+            i++;
+        }
+        String result = "albums:  " + album.getAlbumsName() + '\n' + "Artist:  " + album.getArtist() + "\n" +
+        "Number of songs:  " +  album.getSongList().size();
+        return result;
+    }
+    
+    //e
+    public boolean addSongToLibrary_v2(String songTitle) {
+    	ArrayList<Song> results = musicStore.searchSongByTitle(songTitle);
+    	 if (results.size() == 0) {
+    		 return false;
+    	 }
+    	 Song song = results.get(0);
+    	 songList.add(song);
+    	 boolean albumFound = false;
+    	    for (int i = 0; i < albumsList.size(); i++) {
+    	        Albums album = albumsList.get(i);
+    	        if (album.getAlbumsName().equalsIgnoreCase(song.getAlbum())) {
+    	            albumFound = true;
+    	            if (!album.getSongList().contains(song)) {
+    	                album.getSongList().add(song);
+    	            }
+    	            break;
+    	        }
+    	    }
+    	    if (!albumFound) {
+    	        Albums newAlbum = new Albums(song.getAlbum(), song.getArtist());
+    	        newAlbum.getSongList().add(song);
+    	        albumsList.add(newAlbum);
+    	    }
+    	    return true;
+    }
+    
+    
+    //f
+    public ArrayList<Song> searchSongsByGenre(String genre){
+    	ArrayList<Song> result = new ArrayList<>();
+        int i = 0;
+        while (i < songList.size()) {
+        	Song currentSong = songList.get(i);
+        	if (currentSong.getGenre().equalsIgnoreCase(genre)) {
+                result.add(currentSong);
+            }
+            i++;
+        }
+        return result;
+    }
+        	
+    
+
+    //g
+    public ArrayList<Song> getTopRatedSongs(){
+    	ArrayList<Song> topRated = new ArrayList<>();
+        int i = 0;
+        while (i < songList.size()) {
+        	Song song = songList.get(i);
+            int rating = 0;
+            if (songRatings.containsKey(song)) {
+                rating = songRatings.get(song).getRate();
+            }
+            if (rating >= 4) {
+                topRated.add(song);
+            }
+            i++;
+        }
+        return topRated;
+    }
+    
     
     public String getUsername() {
         return username;
