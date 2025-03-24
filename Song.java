@@ -1,8 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
+package model;
 
 public class Song {
 	
@@ -27,7 +23,13 @@ public class Song {
         return album;
     }
     
+    public String getGenre() {
+    	return genre;
+    }
     
+    public int getYear() {
+    	return year;
+    }
     
     
     public Song(String title, String artist,String album, int year, String genre){
