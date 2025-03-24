@@ -102,7 +102,6 @@ public class UserManager {
         File file = new File(libraryFile);
     }
     
-    
     public LibraryModel loadUserLibrary(String username)  throws FileNotFoundException{
     	 LibraryModel library = new LibraryModel(username, new MusicStore());
          String libraryFile = username + "_library.txt";
@@ -153,6 +152,21 @@ public class UserManager {
              library.getRecentPlayedSongs().add(song);
          }
          
+         String ratingsFile = username + "_ratings.txt";
+         File ratingFile = new File(ratingsFile);
+         Scanner scanner4 = new Scanner(ratingFile);
+         while (scanner.hasNextLine()) {
+        	 String line = scanner4.nextLine();
+             String[] parts = line.split(",");
+        	 String title = parts[0].trim();
+             String artist = parts[1].trim();
+             String album = parts[2].trim();
+             int year = Integer.parseInt(parts[3].trim());
+             String genre = parts[4].trim();
+             int rate = Integer.parseInt(parts[5].trim());
+             Song song = new Song(title, artist, album, year, genre);
+             library.getSongRatings().put(song, new Rate(rate));
+         }
          
          return library;
   
