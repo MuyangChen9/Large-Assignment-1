@@ -3,6 +3,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,7 +16,7 @@ public class LibraryModel {
     private ArrayList<Albums> albumsList;
     private HashSet<Song> favoriteSongs;
     private HashMap<Song, Rate> songRatings;
-    private HashMap<String, ArrayList<Song>> playLists;
+    private HashMap<String, PlayList> playLists;
     private MusicStore musicStore;
     private Map<Song, Integer> playCounts;
     private ArrayList<Song> recentPlayedSongs;
@@ -30,6 +32,7 @@ public class LibraryModel {
         this.playLists = new HashMap<>();
         this.musicStore = musicStore;
         this.playCounts = new HashMap<>();
+        this.recentPlayedSongs = new ArrayList<>();
     }
     
     
@@ -95,7 +98,9 @@ public class LibraryModel {
                     + song.getGenre();
             writer.write(line);
             writer.newLine();
+           
         }
+    	writer.close();
     }
     
     //new
@@ -114,6 +119,7 @@ public class LibraryModel {
             writer.write(line);
             writer.newLine();
     	}
+    	writer.close();
     }
     
     //new
@@ -129,6 +135,7 @@ public class LibraryModel {
             writer.write(line);
             writer.newLine();
         }
+    	writer.close();
     }
     
     //new 
@@ -136,6 +143,7 @@ public class LibraryModel {
     	saverecentPlayedSongs();
     	savePlayCounts();
     	saveLibrary();
+    	saveSongRatings();
     	
     	
     }
@@ -217,6 +225,7 @@ public class LibraryModel {
                     + rate.getRate();
             writer.write(line);
             writer.newLine();
+            writer.close();
         }
     }
     
@@ -267,6 +276,11 @@ public class LibraryModel {
         return removed;
     }
     
+    public ArrayList<Song> shuffle() {
+    	Collections.shuffle(songList);
+    	return songList;
+    }
+    
     //d
     public String getAlbumInfoForSong(String songTitle) {
     	ArrayList<Song> foundSongs = musicStore.searchSongByTitle(songTitle);
@@ -290,13 +304,13 @@ public class LibraryModel {
             }
             i++;
         }
-        String result = "albums:  " + album.getAlbumsName() + '\n' + "Artist:  " + album.getArtist() + "\n" +
+        String result = "Name:  " + album.getAlbumsName() + '\n' + "Artist:  " + album.getArtist() + "\n" +
         "Number of songs:  " +  album.getSongList().size();
         return result;
     }
     
     //e
-    public boolean addSongToLibrary_v2(String songTitle) {
+    public boolean addSongToLibrary(String songTitle) {
     	ArrayList<Song> results = musicStore.searchSongByTitle(songTitle);
     	 if (results.size() == 0) {
     		 return false;
@@ -407,8 +421,8 @@ public class LibraryModel {
     }
     
     //seach a playlist
-    public ArrayList<Song> searchPlayList(String name){
-    	ArrayList<Song> result = new ArrayList<>();
+    public PlayList searchPlayList(String name){
+    	PlayList result = new PlayList(name);
     	if (playLists.containsKey(name)) {
     		result = playLists.get(name);	
     	}
@@ -419,7 +433,8 @@ public class LibraryModel {
     	if(playLists.containsKey(name)) {
     		return false;
     	}
-    	playLists.put(name, new ArrayList<Song>());
+    	PlayList playlist = new PlayList(name);
+    	playLists.put(playlist.getName(), playlist);
     	
     	return true;
     }
@@ -433,51 +448,8 @@ public class LibraryModel {
     	
     	return true;
     }
-    //add the song into playlist
-    public boolean addPlayListSong(String playList, String song) {
-    	if(!playLists.containsKey(playList)) {
-    		return false;
-    	}
-    	ArrayList<Song> newSong = musicStore.searchSongByTitle(song);
-    	if (newSong.size() == 0) {
-    		return false;
-    	}
-    	Song addSong = newSong.get(0);
-    	ArrayList<Song> newPlayList = playLists.get(playList);
-    	newPlayList.add(addSong);
-    	playLists.put(playList,newPlayList);
-    	return true; 	
-    	
-    }
-    //remove the song in playlist
-    public boolean removePlayListSong(String playList, String song) {
-    	if(!playLists.containsKey(playList)) {
-    		return false;
-    	}
-    	ArrayList<Song> newPlayList = playLists.get(playList);
-    	for(int i = 0; i<newPlayList.size(); i++) {
-    		if(!newPlayList.get(0).getTitle().contains(song)) {
-        		return false;
-        	}
-    	}
-    	
-    	newPlayList.remove(song);
+ 
 
-    	playLists.put(playList,newPlayList);
-    	return true; 	
-    	
-    }
-    
-    //add song to library
-    public boolean addSongToLibrary(String song) {
-    	ArrayList<Song> newSong = musicStore.searchSongByTitle(song);
-    	if (newSong.size() == 0) {
-    		return false;
-    	}
-    	songList.addAll(newSong);
-    	return true;
-    }
-    
     //add ablum to library
     public boolean addAlbumToLibrary(String albumsName) {
     	ArrayList<Albums> newSong = musicStore.searchAlbumByTitle(albumsName);
