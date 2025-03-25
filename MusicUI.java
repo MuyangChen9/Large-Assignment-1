@@ -1,8 +1,11 @@
 package view;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+
 import java.util.ArrayList;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -16,13 +19,16 @@ import javafx.scene.control.Button;
 import model.Albums;
 import model.LibraryModel;
 import model.MusicStore;
+import model.PlayList;
 import model.Rate;
 import model.Song;
+import model.UserManager;
 
 public class MusicUI extends Application{
 	//Creates music store and library classes
 	MusicStore store = new MusicStore();
-	LibraryModel account = new LibraryModel("Octio", store);
+	UserManager users = new UserManager();
+	LibraryModel account;
 	
 	//Create UI elements
 	private Label label1 = new Label("Search Music Store for Album by Title");
@@ -47,6 +53,19 @@ public class MusicUI extends Application{
 	private Label label20 = new Label("Mark Song as Favorite");
 	private Label label21 = new Label("Rate Song (Write rating as number then song to rate, separated by a comma)");
 	private Label label22 = new Label("Add Album to Store (Add filepaths here)");
+	private Label label23 = new Label("Register Account (Write username, then password, separated by a comma)");
+	private Label label24 = new Label("Log In (Write username, then password, separated by a comma)");
+	private Label label25 = new Label("Log Out");
+	private Label label26 = new Label("Play Song");
+	private Label label27 = new Label("Show Songs by Title");
+	private Label label28 = new Label("Show Songs by Artist");
+	private Label label29 = new Label("Show Songs by Rating");
+	private Label label30 = new Label("Remove Song from Library");
+	private Label label31 = new Label("Remove Album from Library");
+	private Label label32 = new Label("Shuflle Library");
+	private Label label33 = new Label("Shuffle Playlist");
+	private Label label34 = new Label("Get Album Info from Song");
+	private Label label35 = new Label("Search by Genre");
 	
 	private Label return1 = new Label("");
 	private Label return2 = new Label("");
@@ -70,6 +89,19 @@ public class MusicUI extends Application{
 	private Label return20 = new Label("");
 	private Label return21 = new Label("");
 	private Label return22 = new Label("");
+	private Label return23 = new Label("");
+	private Label return24 = new Label("");
+	private Label return25 = new Label("");
+	private Label return26 = new Label("");
+	private Label return27 = new Label("");
+	private Label return28 = new Label("");
+	private Label return29 = new Label("");
+	private Label return30 = new Label("");
+	private Label return31 = new Label("");
+	private Label return32 = new Label("");
+	private Label return33 = new Label("");
+	private Label return34 = new Label("");
+	private Label return35 = new Label("");
 	
 	private TextField line1 = new TextField();
 	private TextField line2 = new TextField();
@@ -93,6 +125,19 @@ public class MusicUI extends Application{
 	private TextField line20 = new TextField();
 	private TextField line21 = new TextField();
 	private TextField line22 = new TextField();
+	private TextField line23 = new TextField();
+	private TextField line24 = new TextField();
+	private Button    line25 = new Button();
+	private TextField line26 = new TextField();
+	private Button    line27 = new Button();
+	private Button    line28 = new Button();
+	private Button    line29 = new Button();
+	private TextField line30 = new TextField();
+	private TextField line31 = new TextField();
+	private Button    line32 = new Button();
+	private TextField line33 = new TextField();
+	private TextField line34 = new TextField();
+	private TextField line35 = new TextField();
 	
 	private Label songList = new Label();
 	
@@ -125,6 +170,19 @@ public class MusicUI extends Application{
 		grid.add(label20, 1, 20);
 		grid.add(label21, 1, 21);
 		grid.add(label22, 1, 22);
+		grid.add(label23, 4, 1);
+		grid.add(label24, 4, 2);
+		grid.add(label25, 4, 3);
+		grid.add(label26, 4, 4);
+		grid.add(label27, 4, 5);
+		grid.add(label28, 4, 6);
+		grid.add(label29, 4, 7);
+		grid.add(label30, 4, 8);
+		grid.add(label31, 4, 9);
+		grid.add(label32, 4, 10);
+		grid.add(label33, 4, 11);
+		grid.add(label34, 4, 12);
+		grid.add(label35, 4, 13);
 		
 		grid.add(line1, 2, 1);
 		grid.add(line2, 2, 2);
@@ -148,6 +206,19 @@ public class MusicUI extends Application{
 		grid.add(line20, 2, 20);
 		grid.add(line21, 2, 21);
 		grid.add(line22, 2, 22);
+		grid.add(line23, 5, 1);
+		grid.add(line24, 5, 2);
+		grid.add(line25, 5, 3);
+		grid.add(line26, 5, 4);
+		grid.add(line27, 5, 5);
+		grid.add(line28, 5, 6);
+		grid.add(line29, 5, 7);
+		grid.add(line30, 5, 8);
+		grid.add(line31, 5, 9);
+		grid.add(line32, 5, 10);
+		grid.add(line33, 5, 11);
+		grid.add(line34, 5, 12);
+		grid.add(line35, 5, 13);
 		
 		grid.add(return1, 3, 1);
 		grid.add(return2, 3, 2);
@@ -171,10 +242,25 @@ public class MusicUI extends Application{
 		grid.add(return20, 3, 20);
 		grid.add(return21, 3, 21);
 		grid.add(return22, 3, 22);
+		grid.add(return23, 6, 1);
+		grid.add(return24, 6, 2);
+		grid.add(return25, 6, 3);
+		grid.add(return26, 6, 4);
+		grid.add(return27, 6, 5);
+		grid.add(return28, 6, 6);
+		grid.add(return29, 6, 7);
+		grid.add(return30, 6, 8);
+		grid.add(return31, 6, 9);
+		grid.add(return32, 6, 10);
+		grid.add(return33, 6, 11);
+		grid.add(return34, 6, 12);
+		grid.add(return35, 6, 13);
 		
-		grid.add(songList, 4, 1,1,20);
+		
+		
+		grid.add(songList, 4, 14,1,20);
 		songList.setMaxHeight(Double.MAX_VALUE);
-		Scene scene = new Scene(grid, 2000, 1100);
+		Scene scene = new Scene(grid, 4000, 4400);
 		stage.setScene(scene);
 
 		stage.show();
@@ -201,6 +287,19 @@ public class MusicUI extends Application{
 		line20.setOnAction(new TextFieldHandler20());
 		line21.setOnAction(new TextFieldHandler21());
 		line22.setOnAction(new TextFieldHandler22());
+		line23.setOnAction(new TextFieldHandler23());
+		line24.setOnAction(new TextFieldHandler24());
+		line25.setOnAction(new TextFieldHandler25());
+		line26.setOnAction(new TextFieldHandler26());
+		line27.setOnAction(new TextFieldHandler27());
+		line28.setOnAction(new TextFieldHandler28());
+		line29.setOnAction(new TextFieldHandler29());
+		line30.setOnAction(new TextFieldHandler30());
+		line31.setOnAction(new TextFieldHandler31());
+		line32.setOnAction(new TextFieldHandler32());
+		line33.setOnAction(new TextFieldHandler33());
+		line34.setOnAction(new TextFieldHandler34());
+		line35.setOnAction(new TextFieldHandler35());
 	}
 	//Search music store for album by title
 	private class TextFieldHandler1 implements EventHandler<ActionEvent> {
@@ -393,14 +492,14 @@ public class MusicUI extends Application{
 		@Override
 		public void handle(ActionEvent arg0) {
 			String input = line9.getText();
-			ArrayList<Song> result = account.searchPlayList(input);
-			if(result.size() == 0) {
+			PlayList result = account.searchPlayList(input);
+			if(result.getSongs().size() == 0) {
 				return9.setText("Playlist Not Found");
 			}	
 			else {
 				String str = "";
-				for(int i = 0; i<result.size();i++) {
-					str = str + result.get(i).getTitle() + ", " + result.get(i).getArtist() + ", " + "\n";
+				for(int i = 0; i<result.getSongs().size();i++) {
+					str = str + result.getSongs().get(i).getTitle() + ", " + result.getSongs().get(i).getArtist() + ", " + "\n";
 				}
 				songList.setText(str);
 			}
@@ -418,6 +517,17 @@ public class MusicUI extends Application{
 			else {
 				return10.setText("Song Not Added");
 			}
+			String genre = account.searchSongByTitle(input).get(0).getGenre();
+			ArrayList<Song> songs = account.searchSongsByGenre(genre);
+			if(songs.size() >= 10) {
+				account.removeAlbum(genre);
+				account.addPlaylist(genre);
+				for(int i = 0;i<songs.size();i++) {
+					Song song = account.searchSongByTitle(songs.get(i).getTitle()).get(0);
+					account.searchPlayList(genre).addSong(song);
+				}
+			}
+			
 		}
 	}
 	//Add album to library
@@ -432,6 +542,16 @@ public class MusicUI extends Application{
 			else {
 				return11.setText("Album Does Not Exist");
 			}
+			String genre = account.searchAlbumByTitle(input).get(0).getSongList().get(0).getGenre();
+			ArrayList<Song> songs = account.searchSongsByGenre(genre);
+			if(songs.size() >= 10) {
+				account.removeAlbum(genre);
+				account.addPlaylist(genre);
+				for(int i = 0;i<songs.size();i++) {
+					Song song = account.searchSongByTitle(songs.get(i).getTitle()).get(0);
+					account.searchPlayList(genre).addSong(song);
+				}
+			}
 		}
 	}
 	//Get all titles
@@ -440,7 +560,8 @@ public class MusicUI extends Application{
 		public void handle(ActionEvent arg0) {
 			ArrayList<String> songs = account.getAllTitles();
 			if(songs.size() == 0) {
-				songList.setText("No songs");
+				return12.setText("No songs");
+				songList.setText("");
 			}
 			else {
 				String str = "";
@@ -457,7 +578,8 @@ public class MusicUI extends Application{
 		public void handle(ActionEvent arg0) {
 			ArrayList<String> artists = account.getAllArtist();
 			if(artists.size() == 0) {
-				songList.setText("No artists");
+				return13.setText("No artists");
+				songList.setText("");
 			}
 			else {
 				String str = "";
@@ -474,7 +596,8 @@ public class MusicUI extends Application{
 		public void handle(ActionEvent arg0) {
 			ArrayList<String> albums = account.getAllAlbums();
 			if(albums.size() == 0) {
-				songList.setText("No albums");
+				return14.setText("No albums");
+				songList.setText("");
 			}
 			else {
 				String str = "";
@@ -491,7 +614,8 @@ public class MusicUI extends Application{
 		public void handle(ActionEvent arg0) {
 			ArrayList<String> playlist = account.getAllPlayList();
 			if(playlist.size() == 0) {
-				songList.setText("No playlists");
+				return15.setText("No playlists");
+				songList.setText("");
 			}
 			else {
 				String str = "";
@@ -508,7 +632,8 @@ public class MusicUI extends Application{
 		public void handle(ActionEvent arg0) {
 			ArrayList<String> favorite = account.getAllFavorite();
 			if(favorite.size() == 0) {
-				songList.setText("No favorites");
+				return16.setText("No favorites");
+				songList.setText("");
 			}
 			else {
 				String str = "";
@@ -546,13 +671,16 @@ public class MusicUI extends Application{
 			}
 			else {
 				String[] ins = input.split(",", 2);
-				boolean result = account.addPlayListSong(ins[0], ins[1]);
-				if(result == false) {
+				ArrayList<Song> song = account.searchSongByTitle(ins[1]);
+				if(song.size() == 0) {
 					return18.setText("Song addition failed");
 				}
 				else {
 					return18.setText("Song added to playlist: " + ins[0]);
+					account.searchPlayList(ins[0]).addSong(song.get(0));
 				}
+				
+				
 			}
 		}
 	}
@@ -567,12 +695,13 @@ public class MusicUI extends Application{
 			}
 			else {
 				String[] ins = input.split(",", 2);
-				boolean result = account.removePlayListSong(ins[0], ins[1]);
-				if(result == false) {
+				ArrayList<Song> song = account.searchSongByTitle(ins[1]);
+				if(song.size() == 0) {
 					return19.setText("Song removal failed");
 				}
 				else {
 					return19.setText("Song removed from playlist: " + ins[0]);
+					account.searchPlayList(ins[0]).addSong(song.get(0));
 				}
 			}
 		}
@@ -590,6 +719,13 @@ public class MusicUI extends Application{
 			}
 			else {
 				return20.setText(input + " set as favorite");
+			}
+			account.removePlaylist("Favorites");
+			account.addPlaylist("Favorites");
+			ArrayList<String> favSong = account.getAllFavorite();
+			for(int i = 0;i<favSong.size();i++) {
+				Song song = account.searchSongByTitle(favSong.get(i)).get(0);
+				account.searchPlayList("Favorites").addSong(song);
 			}
 		}
 	}
@@ -615,6 +751,28 @@ public class MusicUI extends Application{
 					return21.setText("Rated " + ins[1] + " a " + firstVal);
 				}
 			}
+			account.removePlaylist("Favorites");
+			account.addPlaylist("Favorites");
+			ArrayList<String> favSong = account.getAllFavorite();
+			for(int i = 0;i<favSong.size();i++) {
+				Song song = account.searchSongByTitle(favSong.get(i)).get(0);
+				account.searchPlayList("Favorites").addSong(song);
+			}
+			
+			account.removePlaylist("Top Rated");
+			account.addPlaylist("Top Rated");
+			ArrayList<String> topSongs = new ArrayList<>();
+			for(int i = 0;i<account.getSongList().size();i++) {
+				if(account.getSongRatings().get(topSongs.get(i)).getRate() >= 4) {
+					Song song = account.searchSongByTitle(input).get(i);
+					account.searchPlayList("Top Rated").addSong(song);
+				}
+			}
+			for(int j = 0;j<favSong.size();j++) {
+				Song song2 = account.searchSongByTitle(favSong.get(j)).get(0);
+				account.searchPlayList("Favorites").addSong(song2);
+			}
+			
 		}
 	}
 	//Import album to store
@@ -632,8 +790,262 @@ public class MusicUI extends Application{
 			}
 		}
 	}
+//Register account	
+	private class TextFieldHandler23 implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent arg0) {
+			String input = line23.getText();
+			if(!input.contains(",")) {
+				return23.setText("Invalid input");
+			}else {
+				String[]ins = input.split(",", 2);
+				try {
+					boolean result = users.register(ins[0], ins[1]);
+					if(result == false) {
+						return23.setText("Account creation failed");
+					}
+					else {
+						return23.setText("Account creation successful");
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+	}
+//Log In
+	public class TextFieldHandler24 implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent arg0) {
+			String input = line24.getText();
+			if(!input.contains(",")) {
+				return24.setText("Invalid input");
+			}else {
+				String[]ins = input.split(",", 2);
+				try {
+					boolean result = users.login(ins[0], ins[1]);
+					if(result == false) {
+						return24.setText("Incorrect Username or Password");
+					}
+					else {
+						return24.setText("Welcome " + ins[0]);
+						account = users.loadUserLibrary(ins[0], store);
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+	}
+//Log Out	
+	private class TextFieldHandler25 implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent arg0) {
+			try {
+				account.savedata();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return25.setText("Logged out");
+			account = null;
+		}
+	}
+//Play song	
+	private class TextFieldHandler26 implements EventHandler<ActionEvent>{
+		@Override
+		public void handle(ActionEvent arg0) {
+			String input = line26.getText();
+			boolean result = account.playSong(input);
+			if(result == false) {
+				return26.setText("Song does not exist");
+			}
+			else {
+				return26.setText("Playing " + input);
+				if(account.addPlaylist("Most Recent Songs") == false) {
+					for(int i = 0;i<account.searchPlayList("Most Recent Songs").getSongs().size();i++) {
+						account.searchPlayList("Most Recent Songs").removeSong(account.searchPlayList("Most Recent Songs").getSongs().get(i));
+					}
+				}
+				account.addPlaylist("Most Recent Songs");
+				for(int i = 0;i<account.getrecentPlayedSongs().size();i++) {
+					account.searchPlayList("Most Recent Songs").addSong(account.getrecentPlayedSongs().get(i));
+				}
+				
+				if(account.addPlaylist("Most Played Songs") == false) {
+					for(int i = 0;i<account.searchPlayList("Most Played Songs").getSongs().size();i++) {
+						account.searchPlayList("Most Played Songs").removeSong(account.searchPlayList("Most Played Songs").getSongs().get(i));
+					}
+				}
+				account.addPlaylist("Most Played Songs");
+				for(int i = 0;i<account.getTenMost().size();i++) {
+					account.searchPlayList("Most Played Songs").addSong(account.getTenMost().get(i));
+				}
+			}
+		}	
+	}
+//Show sorted songs	
+	private class TextFieldHandler27 implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent arg0) {
+			ArrayList<Song> songs = account.getSongsSortedByTitle();
+			if(songs.size() == 0) {
+				return27.setText("No songs");
+				songList.setText("");
+			} 
+			else {
+				return27.setText("Showing songs");
+				String str = "";
+				for(int i = 0;i<songs.size();i++) {
+					str = str + songs.get(i).getTitle() + "\n";
+				}
+				songList.setText(str);
+			}
+		}
+	}
+//Show sorted artists	
+	private class TextFieldHandler28 implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent arg0) {
+			ArrayList<Song> songs = account.getSongsSortedByArtist();
+			if(songs.size() == 0) {
+				return28.setText("No songs");
+				songList.setText("");
+			} 
+			else {
+				return28.setText("Showing artists");
+				String str = "";
+				for(int i = 0;i<songs.size();i++) {
+					str = str + songs.get(i).getTitle() + ' ' + songs.get(i).getArtist() + "\n";
+				}
+				songList.setText(str);
+			}
+		}
+	}
+//Show sorted ratings	
+	private class TextFieldHandler29 implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent arg0) {
+			ArrayList<Song> songs = account.getSongsSortedByRating();
+			if(songs.size() <= 0) {
+				return29.setText("No songs");
+				songList.setText("");
+			} 
+			else {
+				return29.setText("Showing songs");
+				String str = "";
+				for(int i = 0;i<songs.size();i++) {
+					if(account.getSongRatings().containsKey(songs.get(i))) {
+						str = str + songs.get(i).getTitle() + " " + account.getSongRatings().get(songs.get(i)).getRate() +  "\n";
+					}
+				}
+				songList.setText(str);
+			}
+		}
+	}
+//Remove song	
+	private class TextFieldHandler30 implements EventHandler<ActionEvent>{
+		@Override
+		public void handle(ActionEvent arg0) {
+			String input = line30.getText();
+			boolean result = account.removeSong(input);
+			if(result == false) {
+				return30.setText("Song not removed");
+			}
+			else {
+				return30.setText("Song removed");
+			}
+		}
+	}
+//Remove album	
+	private class TextFieldHandler31 implements EventHandler<ActionEvent>{
+		@Override
+		public void handle(ActionEvent arg0) {
+			String input = line31.getText();
+			boolean result = account.removeAlbum(input);
+			if(result == false) {
+				return31.setText("Album not removed");
+			}
+			else {
+				return31.setText("Album removed");
+			}
+		}
+	}
+//Shuffle library	
+	private class TextFieldHandler32 implements EventHandler<ActionEvent>{
+		@Override
+		public void handle(ActionEvent arg0) {
+			ArrayList<Song> songs = account.shuffle();
+			if(songs.size() == 0) {
+				return32.setText("No songs");
+			}
+			else {
+				return32.setText("Shuffled songs");
+				String str = "";
+				for(int i = 0;i<songs.size();i++) {
+					str = str + songs.get(i).getTitle() + " " + "\n";
+				}
+				songList.setText(str);
+			}
+		}
+	}
+//Shuffle playlist	
+	private class TextFieldHandler33 implements EventHandler<ActionEvent>{
+		@Override
+		public void handle(ActionEvent arg0) {
+			String input = line33.getText();
+			PlayList playlist = account.searchPlayList(input);
+			if(playlist.getSongs().size() == 0) {
+				return33.setText("Playlist not found");
+				songList.setText("");
+			}
+			else {
+				playlist.shuffle();
+				return33.setText("Playlist shuffled");
+				String str = "";
+				for(int i = 0;i<playlist.getSongs().size();i++) {
+					str = str + playlist.getSongs().get(i).getTitle() + " " + "\n";
+				}
+				songList.setText(str);
+			}
+		}
+	}
+//Get album info from song	
+	private class TextFieldHandler34 implements EventHandler<ActionEvent>{
+		@Override
+		public void handle(ActionEvent arg0) {
+			String input = line34.getText();
+			String result = account.getAlbumInfoForSong(input);
+			songList.setText(result);
+		}
+	}
+//Search song by genre	
+	private class TextFieldHandler35 implements EventHandler<ActionEvent>{
+		@Override
+		public void handle(ActionEvent arg0) {
+			String input = line35.getText();
+			ArrayList<Song> songs = account.searchSongsByGenre(input);
+			
+			if(songs.size() == 0) {
+				return35.setText("Genre not found");
+				songList.setText("");
+			}
+			else {
+				return35.setText("Showing songs");
+				String str = "";
+				for(int i = 0;i<songs.size();i++) {
+					str = str + songs.get(i).getTitle() + " " + "\n";
+				}
+				songList.setText(str);
+			}
+		}
+	}
 	
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
 		launch(args);
 	}
+	
+	
 }
